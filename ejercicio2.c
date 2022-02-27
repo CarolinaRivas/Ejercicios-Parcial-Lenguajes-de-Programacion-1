@@ -46,7 +46,7 @@ void multiplicar(int A[N][N], int B[N][N], int C[N][N], int m, int n, int p)
                 C[i][k] = C[i][k] + A[i][j] * B[j][k];
 }
 
-main()
+int main()
 {
     int m, n, p;
     int A[N][N], B[N][N], C[N][N];
