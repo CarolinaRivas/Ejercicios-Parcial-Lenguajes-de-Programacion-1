@@ -8,7 +8,7 @@ struct Punto
 {
     double x, y, z;
 };
-
+// Sobrecarga del operador + para sumar un punto con un numero
 Punto operator+(const Punto &p, double num)
 {
     Punto res;
@@ -17,7 +17,7 @@ Punto operator+(const Punto &p, double num)
     res.z = p.z + num;
     return res;
 }
-// Sobrecarga del operador + para la clase Punto
+// Sobrecarga del operador + para sumar dos puntos
 Punto operator+(const Punto &p, const Punto &q)
 {
     Punto res;
@@ -26,7 +26,7 @@ Punto operator+(const Punto &p, const Punto &q)
     res.z = p.z + q.z;
     return res;
 }
-// Sobrecarga del operador - para la clase Punto
+// Sobrecarga del operador - para restar dos puntos
 Punto operator-(const Punto &p, const Punto &q)
 {
     Punto res;
@@ -35,7 +35,7 @@ Punto operator-(const Punto &p, const Punto &q)
     res.z = p.z - q.z;
     return res;
 }
-// Sobrecarga del operador * para la clase Punto cuando se multiplica un punto por un numero
+// Sobrecarga del operador * para cuando se multiplica un Punto por un numero
 Punto operator*(const Punto &p, double num)
 {
     Punto res;
@@ -45,23 +45,19 @@ Punto operator*(const Punto &p, double num)
     return res;
 }
 
-// Sobrecarga del operador * para la clase Punto
+// Sobrecarga del operador * Producto Cruz
 Punto operator*(const Punto &p, const Punto &q)
 {
     Punto res;
-    res.x = p.x * q.x;
-    res.y = p.y * q.y;
-    res.z = p.z * q.z;
+    res.x = (p.y * q.z) - (p.z * q.y);
+    res.y = (p.x * q.z) - (p.z * q.x);
+    res.z = (p.x * q.y) - (p.y * q.x);
     return res;
 }
-// Sobrecarga del operador % para la clase Punto
-Punto operator%(const Punto &p, const Punto &q)
+// Sobrecarga del operador % Producto Punto
+float operator%(const Punto &p, const Punto &q)
 {
-    Punto res;
-    res.x = std ::fmod(p.x, q.x);
-    res.y = std ::fmod(p.y, q.y);
-    res.z = std ::fmod(p.z, q.z);
-    return res;
+    return (p.x * q.x) + (p.y * q.y) + (p.z * q.z);
 }
 
 int main()
@@ -81,61 +77,144 @@ int main()
 
     cout << "--------------SUMA----------- \n";
     res = a + b;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de sumar el punto "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "\n"
+         << "con el punto "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "es "
+         << "\n";
+
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
 
     cout << "--------------RESTA----------- \n";
     res = a - b;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
 
-    cout << "--------------MULTIPLICACION----------- \n";
+    cout << "El resultado de restar el punto "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "\n"
+         << "con el punto "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "es "
+         << "\n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
+
+    cout << "--------------MULTIPLICACION PRODUCTO CRUZ----------- \n";
     res = a * b;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
 
-    cout << "--------------MOD----------- \n";
-    res = a % b;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de hacer el producto cruz  del punto "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "\n"
+         << "con el punto "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "es "
+         << "\n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
 
-    cout << "--------------COSAS LOCAS a*b +c---------- \n";
+    cout << "--------------PRODUCTO PUNTO----------- \n";
+    cout << "El resultado de hacer el producto punto  del punto "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "\n"
+         << "con el punto "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "es "
+         << "\n";
+    cout << a % b << "\n";
+
+    cout << "-------------- a*b +c---------- \n";
+    cout << "El resultado de "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "* "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "+ "
+         << "(" << c.x << "," << c.y << "," << c.z << ") "
+         << "es "
+         << "\n";
     res = a * b + c;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
 
-    cout << "--------------COSAS LOCAS (b+b) * (c-a)---------- \n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
+
+    cout << "--------------(b+b) * (c-a)---------- \n";
     res = (b + b) * (c - a);
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
 
-    cout << "--------------COSAS LOCAS a % (c * b)---------- \n";
-    res = a % (c * b);
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de "
+         << "("
+         << "(" << b.x << "," << b.y << "," << b.z << ")"
+         << "+ "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << ")"
+         << "* "
+         << "("
+         << "(" << c.x << "," << c.y << "," << c.z << ") "
+         << "- "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << ") "
+         << "es"
+         << "\n";
 
-    cout << "--------------COSAS LOCAS b + 3 --------- \n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
+
+    cout << "-------------a % (c * b)---------- \n";
+    a % (c * b);
+
+    cout << "El resultado de "
+         << "(" << a.x << "," << a.y << "," << a.z << ") "
+         << "% "
+         << "("
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << "* "
+         << "("
+         << "(" << c.x << "," << c.y << "," << c.z << ") "
+         << ")"
+         << "es"
+         << "\n";
+    cout << a % (c * b) << "\n";
+
+    cout << "-------------- b + 3 --------- \n";
     res = b + 3;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de "
+         << "(" << b.x << "," << b.y << "," << b.z << ")"
+         << "+ "
+         << "3 "
+         << "es "
+         << "\n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
 
-    cout << "--------------COSAS LOCAS (b + b) *(c mod a )---------- \n";
+    cout << "--------------COSAS LOCAS (b + b) *(c '%' a )---------- \n";
     res = (b + b) * (c % a);
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de "
+         << "("
+         << "(" << b.x << "," << b.y << "," << b.z << ")"
+         << "+ "
+         << "(" << b.x << "," << b.y << "," << b.z << ") "
+         << ")"
+         << "* "
+         << "("
+         << "(" << c.x << "," << c.y << "," << c.z << ") "
+         << "% "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << ") "
+         << "es"
+         << "\n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
 
-    cout << "--------------COSAS LOCAS a * 3.0 + 7.0 --------- \n";
+    cout << "-------------- a * 3.0 + 7.0 --------- \n";
     res = a * 3.0 + 7.0;
-    cout << "res.x " << res.x << "\n";
-    cout << "res.y " << res.y << "\n";
-    cout << "res.z " << res.z << "\n";
+    cout << "El resultado de "
+         << "(" << a.x << "," << a.y << "," << a.z << ")"
+         << "* "
+         << "3.0 "
+         << "+ "
+         << "7.0 "
+         << "es "
+         << "\n";
+    cout << "(" << res.x << "," << res.y << "," << res.z << ")"
+         << "\n";
 }
